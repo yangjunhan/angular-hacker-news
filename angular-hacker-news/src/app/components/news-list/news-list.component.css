@@ -1,0 +1,6 @@
+#news-list-container{
+  display: flex;
+  justify-content: center;
+  background: white;
+  width: 100%;
+}
