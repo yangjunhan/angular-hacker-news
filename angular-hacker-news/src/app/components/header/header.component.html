@@ -1,8 +1,8 @@
 <ul id="header-container">
-  <li id="hn-logo" routerLink="/" [queryParams]="{category: 'top'}" routerLinkActive="active">
-  </li>
+  <li id="hn-logo" routerLink="/"></li>
   <li>
-    <a class="menu-item" routerLink="/" [queryParams]="{category: 'top'}" routerLinkActive="active">
+<!--    'top' is default category-->
+    <a class="menu-item" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
       Top
     </a>
   </li>
