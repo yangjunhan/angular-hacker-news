@@ -1,6 +1,24 @@
+:host{
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  width: 100%;
+}
 #news-list-container{
   display: flex;
   justify-content: center;
-  background: white;
+  align-items: center;
+  flex-flow: row wrap;
+  width: 50%;
+  box-shadow: 0 3px 7px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.25);
+}
+#news-list-container div{
+  padding: 10px;
+  height: 80px;
   width: 100%;
+  text-align: center;
+  border-bottom: 1px solid lightgray;
+}
+#news-list-container a{
+  line-height: 80px;
 }

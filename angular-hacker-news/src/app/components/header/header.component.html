@@ -1,8 +1,29 @@
-<div id="header-container">
-  <span id="hn-logo"></span>
-  <a class="menu-item">New</a>
-  <a class="menu-item">Best</a>
-  <a class="menu-item">Ask</a>
-  <a class="menu-item">Show</a>
-  <a class="menu-item">Jobs</a>
-</div>
+<ul id="header-container">
+  <li id="hn-logo" routerLink="/" [queryParams]="{category: 'top'}" routerLinkActive="active">
+  </li>
+  <li>
+    <a class="menu-item" routerLink="/" [queryParams]="{category: 'top'}" routerLinkActive="active">
+      Top
+    </a>
+  </li>
+  <li>
+    <a class="menu-item" routerLink="/" [queryParams]="{category: 'new'}" routerLinkActive="active">
+      New
+    </a>
+  </li>
+  <li>
+    <a class="menu-item" routerLink="/" [queryParams]="{category: 'ask'}" routerLinkActive="active">
+      Ask
+    </a>
+  </li>
+  <li>
+    <a class="menu-item" routerLink="/" [queryParams]="{category: 'show'}" routerLinkActive="active">
+      Show
+    </a>
+  </li>
+  <li>
+    <a class="menu-item" routerLink="/" [queryParams]="{category: 'jobs'}" routerLinkActive="active">
+      Jobs
+    </a>
+  </li>
+</ul>
