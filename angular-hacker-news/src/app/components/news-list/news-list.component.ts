@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HackerNewsApiService } from '../../services/hacker-news-api.service';
 
 @Component({
   selector: 'app-news-list',
@@ -8,11 +9,17 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class NewsListComponent implements OnInit {
   // set default news category as 'top'
-  default = 'top';
-  category: string;
-  constructor(private route: ActivatedRoute) { }
+  private default = 'topstories';
+  public category: string;
+  public newsItems: Array<object>;
+
+  constructor(
+    private route: ActivatedRoute,
+    private api: HackerNewsApiService
+  ) { }
 
   ngOnInit(): void {
+    this.newsItems = [];
     // obtain current category for displaying
     this.route.queryParams.subscribe(params => {
       // ensure that current query parameter 'category' is not undefined
@@ -22,6 +29,10 @@ export class NewsListComponent implements OnInit {
         this.category = this.default;
       }
       console.log('Current category is ' + this.category);
+      this.api.getNewsForPage(this.category, 1, 20).subscribe(data => {
+        console.log(data);
+        this.newsItems.push(data);
+      });
     });
   }
 

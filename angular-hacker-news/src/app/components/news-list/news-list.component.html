@@ -1,6 +1,7 @@
 <div id="news-list-container">
-<!--  used for style tests temporarily-->
-  <div><a>{{category}}</a></div>
-  <div><a>{{category}}</a></div>
-  <div><a>{{category}}</a></div>
+  <div *ngFor="let item of newsItems">
+    <p><b>{{item.title}}</b></p>
+    <p><small>({{item.url}})</small></p>
+    <p>{{item.score}} points by {{item.by}} | {{item.time}}</p>
+  </div>
 </div>

@@ -14,11 +14,8 @@
 }
 #news-list-container div{
   padding: 10px;
-  height: 80px;
+  /*height: 80px;*/
   width: 100%;
   text-align: center;
   border-bottom: 1px solid lightgray;
-}
-#news-list-container a{
-  line-height: 80px;
 }
