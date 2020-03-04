@@ -19,9 +19,10 @@ export class NewsListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.newsItems = [];
     // obtain current category for displaying
     this.route.queryParams.subscribe(params => {
+      // clear previous news items
+      this.newsItems = [];
       // ensure that current query parameter 'category' is not undefined
       if (typeof params.category === 'string') {
         this.category = params.category;
