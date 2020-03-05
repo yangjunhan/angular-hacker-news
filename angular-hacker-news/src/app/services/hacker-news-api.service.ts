@@ -23,7 +23,12 @@ export class HackerNewsApiService {
     this.reqUrl = prefix + '/item/' + id + '.json?print=pretty';
     console.log(this.reqUrl);
     return this.http.get(this.reqUrl)
-      .pipe(retry(3));
+      .pipe(retry(3))
+      .pipe(map(data => {
+        // format the time string
+        (data as any).time = this.formatTime((data as any).time);
+        return data;
+      }));
   }
 
   getNewsForPage(category, pageNum, pageSize) {
@@ -31,5 +36,11 @@ export class HackerNewsApiService {
       .pipe(map(data => data.slice((pageNum - 1) * pageSize + 1, pageNum * pageSize + 1)))
       .pipe(flatMap(data => from(data)))
       .pipe(flatMap(data => this.getNewsItemById(data)));
+  }
+
+  formatTime(t) {
+    let d = new Date().valueOf(); // get current time in seconds
+    d -= t; // reduce current time by t
+    return new Date(d).toLocaleDateString();
   }
 }
