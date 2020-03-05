@@ -1,8 +1,15 @@
 :host{
   display: flex;
   justify-content: center;
-  margin-top: 30px;
   width: 100%;
+  flex-flow: row wrap;
+}
+#pagination{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 20px;
+  font-size: 1.5rem;
 }
 #news-list-container{
   display: flex;
@@ -12,10 +19,14 @@
   width: 50%;
   box-shadow: 0 3px 7px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.25);
 }
-#news-list-container div{
+#news-content{
   padding: 10px;
   /*height: 80px;*/
   width: 100%;
   text-align: center;
   border-bottom: 1px solid lightgray;
+}
+.nav-btn{
+  margin: 0 10px;
+  cursor: pointer;
 }
