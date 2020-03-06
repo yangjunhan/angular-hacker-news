@@ -1,7 +1,13 @@
 <div (click)="openLink()">
-  <p><b>{{index}}. {{title}}</b><small> ({{domain}})</small></p>
   <p>
-    {{score}} points by {{by}} | {{time}} |
-    <a>{{comments}} comments</a>
+    <a id="index">{{index}}. </a>
+    {{title}}
+    <small> ({{domain}})</small>
+  </p>
+  <p>
+    <small>
+      {{score}} points by {{by}} | {{time}} |
+      <a>{{comments}} comments</a>
+    </small>
   </p>
 </div>

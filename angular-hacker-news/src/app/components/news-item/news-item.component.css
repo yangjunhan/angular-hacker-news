@@ -1,4 +1,7 @@
 p {
-  margin-left: 10%;
+  margin-left: 5%;
   cursor: pointer;
+}
+#index, small {
+  color: dimgrey;
 }
