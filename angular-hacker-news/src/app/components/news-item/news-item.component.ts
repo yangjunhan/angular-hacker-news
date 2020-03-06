@@ -13,13 +13,28 @@ export class NewsItemComponent implements OnInit {
   @Input() time: string;
   @Input() score: number;
   @Input() comments: number;
+  public domain: string;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.domain = this.getDomain(this.url);
   }
 
-  openLink() {
+  getDomain(url): string {
+    let hostname;
+    if (url) {
+      if (url.indexOf('://') > -1) {
+        hostname = url.split('/')[2];
+      } else {
+        hostname = url.split('/')[0];
+      }
+      return hostname.split(':')[0].split('?')[0];
+    }
+    return null;
+  }
+
+  openLink(): void {
     if (this.url) {
       window.open(this.url);
     }
