@@ -2,12 +2,14 @@
   <p>
     <a id="index">{{index}}. </a>
     {{title}}
-    <small> ({{domain}})</small>
+    <small class="link"> ({{domain}})</small>
   </p>
   <p>
     <small>
-      {{score}} points by {{by}} | {{time}} |
-      <a>{{comments}} comments</a>
+      {{score}} points by
+      <a class="link" [routerLink]="['/user', by]">{{by}}</a>
+      | {{time}} |
+      <a class="link">{{comments}} comments</a>
     </small>
   </p>
 </div>

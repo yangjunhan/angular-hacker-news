@@ -2,6 +2,12 @@ p {
   margin-left: 5%;
   cursor: pointer;
 }
-#index, small {
+#index, small, a {
   color: dimgrey;
+}
+.link {
+  text-decoration: none;
+}
+.link:hover {
+  text-decoration: underline;
 }
