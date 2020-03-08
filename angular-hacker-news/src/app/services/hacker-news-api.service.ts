@@ -60,6 +60,17 @@ export class HackerNewsApiService {
       }));
   }
 
+  getCommentById(id) {
+    const reqUrl = newsPrefix + id + suffix;
+    return this.http.get(reqUrl)
+      .pipe(retry(3))
+      .pipe(map(data => {
+        // format the time string
+        (data as any).time = this.formatTime((data as any).time);
+        return data;
+      }));
+  }
+
   formatTime(timespan) {
     let timeStr;
     const dateTime = new Date(1000 * timespan);
