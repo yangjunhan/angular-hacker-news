@@ -5,12 +5,10 @@
 }
 #user-info-container{
   margin-top: 30px;
+  padding-left: 30px;
   display: block;
   width: 50%;
   box-shadow: 0 3px 7px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.25);
-}
-h3, p {
-  margin-left: 10%;
 }
 .link {
   color: dimgrey;

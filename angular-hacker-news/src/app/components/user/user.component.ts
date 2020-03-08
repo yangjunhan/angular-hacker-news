@@ -25,7 +25,7 @@ export class UserComponent implements OnInit, OnDestroy {
         console.log(data);
         this.userData = data;
         this.loaded = true;
-      });
+      }, error => console.log(error));
     });
   }
 

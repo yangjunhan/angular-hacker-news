@@ -1,0 +1,13 @@
+<div id="news-info-container" *ngIf="loaded">
+  <div class="separate-line">
+    <h3>{{newsData.title}}</h3>
+    <p>({{newsData.url}})</p>
+  </div>
+  <p>
+    {{newsData.score}} points by
+    <a class="link" [routerLink]="['/user', newsData.by]">{{newsData.by}}</a>
+    | {{newsData.time}}
+  </p>
+</div>
+<div id="comments-container">
+</div>

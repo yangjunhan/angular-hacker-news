@@ -35,7 +35,9 @@ export class HackerNewsApiService {
       .pipe(retry(3))
       .pipe(map(data => {
         // format the time string
-        (data as any).time = this.formatTime((data as any).time);
+        if (data) {
+          (data as any).time = this.formatTime((data as any).time);
+        }
         return data;
       }));
   }

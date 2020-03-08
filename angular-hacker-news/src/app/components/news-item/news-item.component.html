@@ -9,7 +9,7 @@
       {{score}} points by
       <a class="link" [routerLink]="['/user', by]">{{by}}</a>
       | {{time}} |
-      <a class="link">{{comments}} comments</a>
+      <a class="link" [routerLink]="['/comments', id]">{{comments}} comments</a>
     </small>
   </p>
 </div>

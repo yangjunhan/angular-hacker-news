@@ -5,8 +5,8 @@
 </div>
 <div id="news-list-container">
   <div id="news-content" *ngFor="let item of newsItems; let i = index">
-    <app-news-item [index]="(pageNum - 1) * pageSize + i + 1" [title]="item.title"
+    <app-news-item [index]="(pageNum - 1) * pageSize + i + 1" [id]="item.id" [title]="item.title"
                   [by]="item.by" [url]="item.url" [time]="item.time" [score]="item.score"
-                  [comments]="item.kids ? item.kids.length : 0"></app-news-item>
+                  [comments]="item.kids ? item.kids.length : 0" ></app-news-item>
   </div>
 </div>

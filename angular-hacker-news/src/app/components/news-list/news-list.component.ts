@@ -69,8 +69,6 @@ export class NewsListComponent implements OnInit, OnDestroy {
         console.log(data);
         this.totalPage = Math.ceil(this.api.dataSize / this.pageSize);
         this.newsItems.push(data);
-      }, error => {
-        console.log(error);
-      });
+      }, error => console.log(error));
   }
 }

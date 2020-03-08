@@ -8,6 +8,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { NewsListComponent } from './components/news-list/news-list.component';
 import { NewsItemComponent } from './components/news-item/news-item.component';
 import { UserComponent } from './components/user/user.component';
+import { NewsCommentsComponent } from './components/news-comments/news-comments.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { UserComponent } from './components/user/user.component';
     FooterComponent,
     NewsListComponent,
     NewsItemComponent,
-    UserComponent
+    UserComponent,
+    NewsCommentsComponent
   ],
   imports: [
     BrowserModule,
