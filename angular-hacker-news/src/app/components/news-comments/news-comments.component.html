@@ -1,7 +1,7 @@
 <div class="content-wrapper" *ngIf="loaded">
   <div class="separate-line">
     <h3>{{newsData.title}}</h3>
-    <p>({{newsData.url}})</p>
+    <p><a class="link" (click)="openLink()">({{newsData.url}})</a></p>
   </div>
   <p>
     {{newsData.score}} points by
@@ -9,6 +9,10 @@
     | {{newsData.time}}
   </p>
 </div>
-<div class="content-wrapper">
-  <app-comment-tree></app-comment-tree>
+<div class="content-wrapper" *ngIf="loaded">
+  <ul>
+    <li *ngFor="let id of newsData.kids">
+      <app-comment-tree [rootId]="id"></app-comment-tree>
+    </li>
+  </ul>
 </div>

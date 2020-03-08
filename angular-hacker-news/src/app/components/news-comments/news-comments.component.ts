@@ -31,4 +31,7 @@ export class NewsCommentsComponent implements OnInit {
     });
   }
 
+  openLink() {
+    window.open(this.newsData.url);
+  }
 }

@@ -1,7 +1,5 @@
-div {
-  margin-left: 30px;
-}
 p {
+  padding: 0 30px;
   cursor: pointer;
 }
 #index, small, a {

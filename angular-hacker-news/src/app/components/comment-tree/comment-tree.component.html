@@ -1,1 +1,5 @@
-<p>comment-tree works!</p>
+<div class="separate-line" *ngIf="loaded">
+  <h4>{{rootComment.by}}</h4>
+  <small>{{rootComment.time}}</small>
+  <p [innerHTML]="rootComment.text"></p>
+</div>
