@@ -9,6 +9,7 @@ import { NewsListComponent } from './components/news-list/news-list.component';
 import { NewsItemComponent } from './components/news-item/news-item.component';
 import { UserComponent } from './components/user/user.component';
 import { NewsCommentsComponent } from './components/news-comments/news-comments.component';
+import { CommentTreeComponent } from './components/comment-tree/comment-tree.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { NewsCommentsComponent } from './components/news-comments/news-comments.
     NewsListComponent,
     NewsItemComponent,
     UserComponent,
-    NewsCommentsComponent
+    NewsCommentsComponent,
+    CommentTreeComponent
   ],
   imports: [
     BrowserModule,

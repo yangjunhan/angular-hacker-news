@@ -1,13 +1,8 @@
-:host{
-  display: flex;
-  justify-content: center;
-  flex-flow: row wrap;
-}
 #user-info-container{
-  margin-top: 30px;
-  padding-left: 30px;
+  margin: 30px auto 0;
+  padding: 5px 30px;
   display: block;
-  width: 50%;
+  width: 30%;
   box-shadow: 0 3px 7px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.25);
 }
 .link {

@@ -1,4 +1,4 @@
-<div id="news-info-container" *ngIf="loaded">
+<div class="content-wrapper" *ngIf="loaded">
   <div class="separate-line">
     <h3>{{newsData.title}}</h3>
     <p>({{newsData.url}})</p>
@@ -9,5 +9,6 @@
     | {{newsData.time}}
   </p>
 </div>
-<div id="comments-container">
+<div class="content-wrapper">
+  <app-comment-tree></app-comment-tree>
 </div>
