@@ -1,12 +1,12 @@
 p {
   padding: 0 30px;
-  cursor: pointer;
 }
 #index, small, a {
   color: dimgrey;
 }
 .link {
   text-decoration: none;
+  cursor: pointer;
 }
 .link:hover {
   text-decoration: underline;
