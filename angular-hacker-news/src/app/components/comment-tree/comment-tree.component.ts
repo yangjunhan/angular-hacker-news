@@ -12,12 +12,14 @@ export class CommentTreeComponent implements OnInit {
   private subscription: Subscription;
   public rootComment: any;
   public loaded: boolean;
+  public hide: boolean;
   constructor(
     private api: HackerNewsApiService
   ) { }
 
   ngOnInit(): void {
     this.loaded = false;
+    this.hide = true;
     this.subscription = this.api.getCommentById(this.rootId).subscribe(data => {
       console.log(data);
       this.rootComment = data;
@@ -25,4 +27,7 @@ export class CommentTreeComponent implements OnInit {
     }, error => console.log(error));
   }
 
+  toggleHide() {
+    this.hide = !this.hide;
+  }
 }

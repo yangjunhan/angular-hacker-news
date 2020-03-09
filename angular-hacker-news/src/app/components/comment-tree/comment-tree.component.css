@@ -10,6 +10,27 @@ small {
   margin-left: 10px;
   color: dimgrey;
 }
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+li {
+  word-break: break-word;
+}
 .separate-line {
   border-bottom: 1px solid gainsboro;
+}
+.comment-wrapper {
+  margin-left: 40px;
+}
+.toggle {
+  display: flex;
+  justify-content: flex-end;
+  color: dimgrey;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+.toggle:hover {
+  text-decoration: underline;
 }

@@ -1,5 +1,15 @@
-<div class="separate-line" *ngIf="loaded">
+<div class="separate-line" *ngIf="loaded && !rootComment.dead && !rootComment.deleted">
   <h4>{{rootComment.by}}</h4>
   <small>{{rootComment.time}}</small>
   <p [innerHTML]="rootComment.text"></p>
+  <div class="toggle" *ngIf="!!rootComment.kids">
+    <a id="toggle-hide" (click)="toggleHide()" [innerHTML]="hide?'More':'Hide'"></a>
+  </div>
+</div>
+<div class="comment-wrapper" *ngIf="!hide">
+  <ul>
+    <li *ngFor="let id of rootComment.kids">
+      <app-comment-tree [rootId]="id"></app-comment-tree>
+    </li>
+  </ul>
 </div>
