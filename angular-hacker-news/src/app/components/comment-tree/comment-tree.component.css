@@ -24,13 +24,15 @@ li {
 .comment-wrapper {
   margin-left: 40px;
 }
+.link {
+  cursor: pointer;
+}
+.link:hover {
+  text-decoration: underline;
+}
 .toggle {
   display: flex;
   justify-content: flex-end;
   color: dimgrey;
   margin-bottom: 20px;
-  cursor: pointer;
-}
-.toggle:hover {
-  text-decoration: underline;
 }

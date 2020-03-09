@@ -1,8 +1,8 @@
 <div class="separate-line" *ngIf="loaded && !rootComment.dead && !rootComment.deleted">
-  <h4>{{rootComment.by}}</h4>
+  <h4 class="link" [routerLink]="['/user', rootComment.by]">{{rootComment.by}}</h4>
   <small>{{rootComment.time}}</small>
   <p [innerHTML]="rootComment.text"></p>
-  <div class="toggle" *ngIf="!!rootComment.kids">
+  <div class="link toggle" *ngIf="!!rootComment.kids">
     <a id="toggle-hide" (click)="toggleHide()" [innerHTML]="hide?'More':'Hide'"></a>
   </div>
 </div>
