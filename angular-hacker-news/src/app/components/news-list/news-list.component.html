@@ -1,7 +1,7 @@
 <div id="pagination">
-  <div class="nav-btn" (click)="prevPage()">prev</div>
+  <div id="back-icon" class="nav-btn" (click)="prevPage()"></div>
   <span><small>{{pageNum}}/{{totalPage}}</small></span>
-  <div class="nav-btn" (click)="nextPage()">next</div>
+  <div id="next-icon" class="nav-btn" (click)="nextPage()"></div>
 </div>
 <div id="news-list-container">
   <div id="news-content" *ngFor="let item of newsItems; let i = index">
