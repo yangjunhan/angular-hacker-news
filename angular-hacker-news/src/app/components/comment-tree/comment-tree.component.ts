@@ -27,7 +27,7 @@ export class CommentTreeComponent implements OnInit {
     }, error => console.log(error));
   }
 
-  toggleHide() {
+  toggleHide(): void {
     this.hide = !this.hide;
   }
 }

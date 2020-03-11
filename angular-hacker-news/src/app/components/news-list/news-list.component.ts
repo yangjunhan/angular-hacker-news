@@ -1,74 +1,63 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HackerNewsApiService } from '../../services/hacker-news-api.service';
-import {Observable, Subscription} from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-news-list',
   templateUrl: './news-list.component.html',
   styleUrls: ['./news-list.component.css']
 })
-export class NewsListComponent implements OnInit, OnDestroy {
-  // set default news category as 'topstories'
+export class NewsListComponent implements OnInit {
+  // set default news category as 'topstories' and page max size as 20
   private default = 'topstories';
-  private newsItems$: Observable<object>;
-  private subscription: Subscription;
+  public pageSize = 20;
   public category: string;
   public newsItems: Array<object>;
   public pageNum: number;
   public totalPage: number;
-  public pageSize: number;
 
   constructor(
     private route: ActivatedRoute,
-    private api: HackerNewsApiService
+    private api: HackerNewsApiService,
+    private  router: Router
   ) { }
 
   ngOnInit(): void {
-    this.pageSize = 20;
-    // obtain current category for displaying
-    this.route.queryParams.subscribe(params => {
-      // refresh page number
-      this.pageNum = 1;
-      // ensure that current query parameter 'category' is not undefined
-      if (typeof params.category === 'string') {
-        this.category = params.category;
-      } else {
-        this.category = this.default;
-      }
-      console.log('Current category is ' + this.category);
-      this.getNewsForCurrentPage();
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    // use snapshot to get the static data of category
+    this.category = this.route.snapshot.data.category || this.default;
+    this.route.queryParams
+      // use switchMap to control the data stream received
+      .pipe(switchMap(params => {
+        // get current page number and initialise data list
+        this.pageNum = +params.page || 1;
+        this.newsItems = [];
+        console.log('Current category is ' + this.category);
+        return this.api.getNewsForPage(this.category, this.pageNum, this.pageSize);
+      }))
+      .subscribe(
+        data => {
+          if (data) {
+            console.log(data);
+            this.totalPage = Math.ceil(this.api.dataSize / this.pageSize);
+            this.newsItems.push(data);
+          }
+        }, error => console.log(error));
   }
 
   prevPage() {
-    this.pageNum = this.pageNum === 1 ? 1 : this.pageNum -= 1;
-    this.getNewsForCurrentPage();
+    this.pageNum = Math.max(1, this.pageNum - 1);
+    return this.navigateTo(this.category, this.pageNum);
   }
 
   nextPage() {
-    this.pageNum = this.pageNum === this.totalPage ? this.totalPage : this.pageNum += 1;
-    this.getNewsForCurrentPage();
+    this.pageNum = Math.min(this.totalPage, this.pageNum + 1);
+    return this.navigateTo(this.category, this.pageNum);
   }
 
-  getNewsForCurrentPage() {
-    // unsubscribe previous subscription if exists
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-    // clear previous news items
-    this.newsItems = [];
-    // load news items
-    this.newsItems$ = this.api.getNewsForPage(this.category, this.pageNum, this.pageSize);
-    this.subscription = this.newsItems$.subscribe(
-      data => {
-        console.log(data);
-        this.totalPage = Math.ceil(this.api.dataSize / this.pageSize);
-        this.newsItems.push(data);
-      }, error => console.log(error));
+  navigateTo(newCategory: string, newPageNum: number) {
+    return this.router.navigate(['/' + this.category], {
+      queryParams: {page: newPageNum}
+    });
   }
 }

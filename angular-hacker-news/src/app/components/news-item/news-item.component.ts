@@ -22,7 +22,7 @@ export class NewsItemComponent implements OnInit {
     this.domain = this.getDomain(this.url);
   }
 
-  getDomain(url): string {
+  getDomain(url: string): string {
     let hostname;
     if (url) {
       if (url.indexOf('://') > -1) {

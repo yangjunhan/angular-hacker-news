@@ -33,7 +33,7 @@ export class UserComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  openLink(type) {
+  openLink(type: string) {
     window.open('https://news.ycombinator.com/' + type + '?id=' + this.userData.id);
   }
 }

@@ -2,31 +2,27 @@
   <li id="hn-logo" routerLink="/"></li>
   <li>
 <!--    'top' is default category-->
-    <a class="menu-item" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+    <a class="menu-item" routerLink="/topstories" routerLinkActive="active">
       Top
     </a>
   </li>
   <li>
-    <a class="menu-item" routerLink="/" [queryParams]="{category: 'newstories'}"
-       routerLinkActive="active">
+    <a class="menu-item" routerLink="/newstories" routerLinkActive="active">
       New
     </a>
   </li>
   <li>
-    <a class="menu-item" routerLink="/" [queryParams]="{category: 'askstories'}"
-       routerLinkActive="active">
+    <a class="menu-item" routerLink="/askstories" routerLinkActive="active">
       Ask
     </a>
   </li>
   <li>
-    <a class="menu-item" routerLink="/" [queryParams]="{category: 'showstories'}"
-       routerLinkActive="active">
+    <a class="menu-item" routerLink="/showstories" routerLinkActive="active">
       Show
     </a>
   </li>
   <li>
-    <a class="menu-item" routerLink="/" [queryParams]="{category: 'jobstories'}"
-       routerLinkActive="active">
+    <a class="menu-item" routerLink="/jobstories" routerLinkActive="active">
       Jobs
     </a>
   </li>
