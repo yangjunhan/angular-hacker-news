@@ -5,6 +5,7 @@ import { UserComponent } from './components/user/user.component';
 import { NewsCommentsComponent } from './components/news-comments/news-comments.component';
 
 const routes: Routes = [
+  // store category info in route data, which can be retrieved in snapshot conveniently
   {path: 'topstories', data: {category: 'topstories'}, component: NewsListComponent},
   {path: '', redirectTo: 'topstories', pathMatch: 'full'},
   {path: 'newstories', data: {category: 'newstories'}, component: NewsListComponent},

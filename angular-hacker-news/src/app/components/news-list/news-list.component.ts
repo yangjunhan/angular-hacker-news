@@ -45,17 +45,30 @@ export class NewsListComponent implements OnInit {
         }, error => console.log(error));
   }
 
-  prevPage() {
+  /**
+   * Function to be a click event in Pagination.
+   * decrement current page number by 1 (minimum 1)
+   * and refresh the list component
+   */
+  prevPage(): Promise<boolean> {
     this.pageNum = Math.max(1, this.pageNum - 1);
     return this.navigateTo(this.category, this.pageNum);
   }
 
-  nextPage() {
+  /**
+   * Function to be a click event in Pagination.
+   * increment current page number by 1 (maximum total page number)
+   * and refresh the list component
+   */
+  nextPage(): Promise<boolean> {
     this.pageNum = Math.min(this.totalPage, this.pageNum + 1);
     return this.navigateTo(this.category, this.pageNum);
   }
 
-  navigateTo(newCategory: string, newPageNum: number) {
+  /**
+   * Navigate to page with new category and/or new page number
+   */
+  navigateTo(newCategory: string, newPageNum: number): Promise<boolean> {
     return this.router.navigate(['/' + this.category], {
       queryParams: {page: newPageNum}
     });

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-news-item',
@@ -22,6 +22,9 @@ export class NewsItemComponent implements OnInit {
     this.domain = this.getDomain(this.url);
   }
 
+  /**
+   * Extract domain from a given URL.
+   */
   getDomain(url: string): string {
     let hostname;
     if (url) {
@@ -35,6 +38,9 @@ export class NewsItemComponent implements OnInit {
     return null;
   }
 
+  /**
+   * Function to be a click event which opens a new tab of given URL
+   */
   openLink(): void {
     if (this.url) {
       window.open(this.url);

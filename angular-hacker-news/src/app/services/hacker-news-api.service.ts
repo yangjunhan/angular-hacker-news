@@ -17,7 +17,11 @@ export class HackerNewsApiService {
 
   constructor(private http: HttpClient) { }
 
-  getNewsByCategory(category): Observable<any> {
+  /**
+   * Return an observable object that sends a HTTP GET request to HackerNews API
+   * to obtain whole list of data for news items with given category.
+   */
+  getNewsByCategory(category: string): Observable<any> {
     const reqUrl = prefix + category + suffix;
     console.log(reqUrl);
     return this.http.get(reqUrl)
@@ -28,7 +32,11 @@ export class HackerNewsApiService {
       }));
   }
 
-  getNewsItemById(id) {
+  /**
+   * Return an observable object that sends a HTTP GET request to HackerNews API
+   * to obtain data for news item with given news ID
+   */
+  getNewsItemById(id: string): Observable<any> {
     const reqUrl = newsPrefix + id + suffix;
     console.log(reqUrl);
     return this.http.get(reqUrl)
@@ -42,14 +50,23 @@ export class HackerNewsApiService {
       }));
   }
 
-  getNewsForPage(category, pageNum, pageSize) {
+  /**
+   * Return an observable object that sends a HTTP GET request to HackerNews API
+   * to obtain a list data for news with given category.
+   * The list of data is sliced according to page number and page size.
+   */
+  getNewsForPage(category: string, pageNum: number, pageSize: number): Observable<any> {
     return this.getNewsByCategory(category)
       .pipe(map(data => data.slice((pageNum - 1) * pageSize + 1, pageNum * pageSize + 1)))
       .pipe(flatMap(data => from(data)))
-      .pipe(flatMap(data => this.getNewsItemById(data)));
+      .pipe(flatMap(data => this.getNewsItemById(String(data))));
   }
 
-  getUserByName(username) {
+  /**
+   * Return an observable object that sends a HTTP GET request to HackerNews API
+   * to obtain data for a user with given username.
+   */
+  getUserByName(username: string): Observable<any> {
     const reqUrl = userPrefix + username + suffix;
     return this.http.get(reqUrl)
       .pipe(retry(3))
@@ -60,7 +77,11 @@ export class HackerNewsApiService {
       }));
   }
 
-  getCommentById(id) {
+  /**
+   * Return an observable object that sends a HTTP GET request to HackerNews API
+   * to obtain data for news comment with given comment ID.
+   */
+  getCommentById(id: string): Observable<any> {
     const reqUrl = newsPrefix + id + suffix;
     return this.http.get(reqUrl)
       .pipe(retry(3))
@@ -71,7 +92,11 @@ export class HackerNewsApiService {
       }));
   }
 
-  formatTime(timespan) {
+  /**
+   * convert from given Unix time input to a pretty string indicating the time.
+   * e.g. 10 hours age, 3 days ago.
+   */
+  formatTime(timespan: number): string {
     let timeStr;
     const dateTime = new Date(1000 * timespan);
     const year = dateTime.getFullYear();
