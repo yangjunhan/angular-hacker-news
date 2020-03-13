@@ -10,12 +10,9 @@
   margin: 0;
 }
 #hn-logo{
-  background-image: url("../../../assets/logo_HN.png");
   width: 40px;
   height: 40px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background: url("../../../assets/logo_HN.png") no-repeat center/cover;
   cursor: pointer;
   margin-left: 25%;
 }

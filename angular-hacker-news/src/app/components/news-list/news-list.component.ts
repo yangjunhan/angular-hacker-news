@@ -16,6 +16,7 @@ export class NewsListComponent implements OnInit {
   public newsItems: Array<object>;
   public pageNum: number;
   public totalPage: number;
+  public loading: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,6 +25,7 @@ export class NewsListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.loading = true;
     // use snapshot to get the static data of category
     this.category = this.route.snapshot.data.category || this.default;
     this.route.queryParams
@@ -42,6 +44,7 @@ export class NewsListComponent implements OnInit {
             this.totalPage = Math.ceil(this.api.dataSize / this.pageSize);
             this.newsItems.push(data);
           }
+          this.loading = false;
         }, error => console.log(error));
   }
 
