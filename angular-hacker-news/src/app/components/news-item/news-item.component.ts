@@ -25,7 +25,7 @@ export class NewsItemComponent implements OnInit {
   /**
    * Extract domain from a given URL.
    */
-  getDomain(url: string): string {
+  public getDomain(url: string): string {
     let hostname;
     if (url) {
       if (url.indexOf('://') > -1) {
@@ -41,7 +41,7 @@ export class NewsItemComponent implements OnInit {
   /**
    * Function to be a click event which opens a new tab of given URL
    */
-  openLink(): void {
+  public openLink(): void {
     if (this.url) {
       window.open(this.url);
     }

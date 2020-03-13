@@ -36,7 +36,7 @@ export class NewsCommentsComponent implements OnInit {
   /**
    * Function to be a click event which opens a new tab of given URL
    */
-  openLink(): void {
+  public openLink(): void {
     window.open(this.newsData.url);
   }
 }

@@ -34,7 +34,7 @@ export class UserComponent implements OnInit {
    * Function to be a click event in this component.
    * It takes a type input and redirect it to corresponding hacker news page for that type.
    */
-  openLink(type: string): void {
+  public openLink(type: string): void {
     window.open('https://news.ycombinator.com/' + type + '?id=' + this.userData.id);
   }
 }
