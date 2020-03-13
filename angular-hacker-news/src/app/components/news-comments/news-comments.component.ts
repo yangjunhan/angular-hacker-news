@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HackerNewsApiService } from '../../services/hacker-news-api.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-news-comments',
@@ -9,7 +8,6 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./news-comments.component.css']
 })
 export class NewsCommentsComponent implements OnInit {
-  private subscription: Subscription;
   private id: string;
   public newsData: any;
   public loaded: boolean;
@@ -24,7 +22,7 @@ export class NewsCommentsComponent implements OnInit {
     this.route.params.subscribe(params => {
       // obtain news item's id from params
       this.id = params.id;
-      this.subscription = this.api.getNewsItemById(this.id).subscribe(data => {
+      this.api.getNewsItemById(this.id).subscribe(data => {
         console.log(data);
         this.newsData = data;
         // all data has been stored, set loaded variable to be true

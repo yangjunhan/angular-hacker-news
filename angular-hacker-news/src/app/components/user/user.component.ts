@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { HackerNewsApiService } from '../../services/hacker-news-api.service';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user',
@@ -9,7 +8,6 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  private subscription: Subscription;
   public loaded: boolean;
   public userData: any;
 
@@ -21,7 +19,7 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.loaded = false;
     this.route.params.subscribe(params => {
-      this.subscription = this.api.getUserByName(params.username).subscribe(data => {
+      this.api.getUserByName(params.username).subscribe(data => {
         console.log(data);
         this.userData = data;
         // all data has been stored, set loaded variable to be true

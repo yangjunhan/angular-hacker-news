@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HackerNewsApiService } from '../../services/hacker-news-api.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-comment-tree',
@@ -9,7 +8,6 @@ import { Subscription } from 'rxjs';
 })
 export class CommentTreeComponent implements OnInit {
   @Input() rootId: string;
-  private subscription: Subscription;
   public rootComment: any;
   public loaded: boolean;
   public hide: boolean;
@@ -20,7 +18,7 @@ export class CommentTreeComponent implements OnInit {
   ngOnInit(): void {
     this.loaded = false;
     this.hide = true;
-    this.subscription = this.api.getCommentById(this.rootId).subscribe(data => {
+    this.api.getCommentById(this.rootId).subscribe(data => {
       console.log(data);
       this.rootComment = data;
       this.loaded = true;
