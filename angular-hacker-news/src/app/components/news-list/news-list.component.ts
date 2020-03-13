@@ -45,7 +45,10 @@ export class NewsListComponent implements OnInit {
             this.newsItems.push(data);
           }
           this.loading = false;
-        }, error => console.log(error));
+        }, error => {
+          console.log(error);
+          return this.router.navigate(['/errors']);
+        });
   }
 
   /**

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { HackerNewsApiService } from '../../services/hacker-news-api.service';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -8,23 +8,27 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  public loaded: boolean;
+  public loading: boolean;
   public userData: any;
 
   constructor(
     private route: ActivatedRoute,
-    private api: HackerNewsApiService
+    private api: HackerNewsApiService,
+    private  router: Router
   ) { }
 
   ngOnInit(): void {
-    this.loaded = false;
+    this.loading = true;
     this.route.params.subscribe(params => {
       this.api.getUserByName(params.username).subscribe(data => {
         console.log(data);
         this.userData = data;
         // all data has been stored, set loaded variable to be true
-        this.loaded = true;
-      }, error => console.log(error));
+        this.loading = false;
+      }, error => {
+        console.log(error);
+        return this.router.navigate(['/errors']);
+      });
     });
   }
 

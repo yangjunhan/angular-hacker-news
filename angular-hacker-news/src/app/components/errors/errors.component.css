@@ -1,0 +1,9 @@
+div {
+  display: flex;
+  justify-content: center;
+  margin: 80px 0;
+}
+p {
+  font-size: 1.25rem;
+  padding: 0 10px;
+}

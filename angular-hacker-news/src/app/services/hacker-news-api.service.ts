@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { from, Observable } from 'rxjs';
-import { retry, map, tap, flatMap } from 'rxjs/operators';
+import {from, Observable, of} from 'rxjs';
+import {retry, map, tap, flatMap, timeout, catchError} from 'rxjs/operators';
 
 const prefix = 'https://hacker-news.firebaseio.com/v0/';
 const newsPrefix = prefix + '/item/';
@@ -63,12 +63,13 @@ export class HackerNewsApiService {
     console.log(reqUrl);
     return this.http.get(reqUrl)
       .pipe(
+        // retry at most 3 times, timeout after 5 seconds
         retry(3),
+        timeout(5000),
         tap(data => {
           this.dataSource = data;
           this.dataSize = data.length;
-        }
-      ));
+        }));
   }
 
   /**
@@ -80,7 +81,9 @@ export class HackerNewsApiService {
     console.log(reqUrl);
     return this.http.get(reqUrl)
       .pipe(
+        // retry at most 3 times, timeout after 5 seconds
         retry(3),
+        timeout(5000),
         map(data => {
           // format the time string
           if (data) {
@@ -113,7 +116,9 @@ export class HackerNewsApiService {
     const reqUrl = userPrefix + username + suffix;
     return this.http.get(reqUrl)
       .pipe(
+        // retry at most 3 times, timeout after 5 seconds
         retry(3),
+        timeout(5000),
         map(data => {
           // format the time string
           (data as any).created = HackerNewsApiService.formatTime((data as any).created);
@@ -126,11 +131,13 @@ export class HackerNewsApiService {
    * Return an observable object that sends a HTTP GET request to HackerNews API
    * to obtain data for news comment with given comment ID.
    */
-  public getCommentById(id: string): Observable<any> {
-    const reqUrl = newsPrefix + id + suffix;
+  public getCommentById(commentId: string): Observable<any> {
+    const reqUrl = newsPrefix + commentId + suffix;
     return this.http.get(reqUrl)
       .pipe(
+        // retry at most 3 times, timeout after 5 seconds
         retry(3),
+        timeout(5000),
         map(data => {
           // format the time string
           (data as any).time = HackerNewsApiService.formatTime((data as any).time);

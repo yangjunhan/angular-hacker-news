@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { HackerNewsApiService } from '../../services/hacker-news-api.service';
 
 @Component({
@@ -10,15 +10,16 @@ import { HackerNewsApiService } from '../../services/hacker-news-api.service';
 export class NewsCommentsComponent implements OnInit {
   private id: string;
   public newsData: any;
-  public loaded: boolean;
+  public loading: boolean;
 
   constructor(
     private route: ActivatedRoute,
-    private api: HackerNewsApiService
+    private api: HackerNewsApiService,
+    private  router: Router
   ) { }
 
   ngOnInit(): void {
-    this.loaded = false;
+    this.loading = true;
     this.route.params.subscribe(params => {
       // obtain news item's id from params
       this.id = params.id;
@@ -26,8 +27,11 @@ export class NewsCommentsComponent implements OnInit {
         console.log(data);
         this.newsData = data;
         // all data has been stored, set loaded variable to be true
-        this.loaded = true;
-      }, error => console.log(error));
+        this.loading = false;
+      }, error => {
+        console.log(error);
+        return this.router.navigate(['/errors']);
+      });
     });
   }
 

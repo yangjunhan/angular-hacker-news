@@ -4,10 +4,3 @@ p {
 #index, small, a {
   color: dimgrey;
 }
-.link {
-  text-decoration: none;
-  cursor: pointer;
-}
-.link:hover {
-  text-decoration: underline;
-}

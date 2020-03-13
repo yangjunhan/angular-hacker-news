@@ -10,6 +10,7 @@ import { NewsItemComponent } from './components/news-item/news-item.component';
 import { UserComponent } from './components/user/user.component';
 import { NewsCommentsComponent } from './components/news-comments/news-comments.component';
 import { CommentTreeComponent } from './components/comment-tree/comment-tree.component';
+import { ErrorsComponent } from './components/errors/errors.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CommentTreeComponent } from './components/comment-tree/comment-tree.com
     NewsItemComponent,
     UserComponent,
     NewsCommentsComponent,
-    CommentTreeComponent
+    CommentTreeComponent,
+    ErrorsComponent
   ],
   imports: [
     BrowserModule,

@@ -5,12 +5,6 @@
   margin: 20px auto;
   font-size: 1.5rem;
 }
-#loading-spinner {
-  width: 200px;
-  height: 200px;
-  background: url("../../../assets/Spinner-1s-200px.svg") no-repeat center/cover;
-  margin: 80px auto;
-}
 #news-list-container{
   display: flex;
   justify-content: center;

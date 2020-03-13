@@ -1,12 +1,13 @@
-<div id="user-info-container" *ngIf="loaded">
+<div class="loading-spinner" *ngIf="loading"></div>
+<div id="user-info-container" *ngIf="!loading">
   <h3>User: {{userData.id}}</h3>
   <p>Karma: {{userData.karma}}</p>
   <p>Created: {{userData.created}}</p>
   <p>
-    <a class="link" (click)="openLink('submitted')">submissions</a>
+    <a class="link link-color" (click)="openLink('submitted')">submissions</a>
      |
-    <a class="link" (click)="openLink('threads')">comments</a>
+    <a class="link link-color" (click)="openLink('threads')">comments</a>
      |
-    <a class="link" (click)="openLink('favorites')">favorites</a>
+    <a class="link link-color" (click)="openLink('favorites')">favorites</a>
   </p>
 </div>

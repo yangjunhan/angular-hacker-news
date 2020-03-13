@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HackerNewsApiService } from '../../services/hacker-news-api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-comment-tree',
@@ -12,7 +13,8 @@ export class CommentTreeComponent implements OnInit {
   public loaded: boolean;
   public hide: boolean;
   constructor(
-    private api: HackerNewsApiService
+    private api: HackerNewsApiService,
+    private  router: Router
   ) { }
 
   ngOnInit(): void {
@@ -22,7 +24,10 @@ export class CommentTreeComponent implements OnInit {
       console.log(data);
       this.rootComment = data;
       this.loaded = true;
-    }, error => console.log(error));
+    }, error => {
+      console.log(error);
+      return this.router.navigate(['/errors']);
+    });
   }
 
   public toggleHide(): void {

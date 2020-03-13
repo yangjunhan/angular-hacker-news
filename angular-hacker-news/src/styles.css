@@ -3,3 +3,16 @@ body{
   margin: 0;
   padding: 0;
 }
+.loading-spinner {
+  width: 200px;
+  height: 200px;
+  background: url("./assets/Spinner-1s-200px.svg") no-repeat center/cover;
+  margin: 80px auto;
+}
+.link {
+  text-decoration: none;
+  cursor: pointer;
+}
+.link:hover {
+  text-decoration: underline;
+}
