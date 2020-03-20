@@ -41,7 +41,7 @@ export class NewsListComponent implements OnInit {
         data => {
           if (data) {
             console.log(data);
-            this.totalPage = Math.ceil(this.api.dataSize / this.pageSize);
+            this.totalPage = this.api.getTotalPage();
             this.newsItems.push(data);
           }
           this.loading = false;

@@ -20,7 +20,7 @@ const suffix = '.json?print=pretty';
 export class HackerNewsApiService {
 
   constructor(private http: HttpClient) { }
-  public dataSize: number;
+  private totalPage: number;
 
   /**
    * convert from given Unix time input to a pretty string indicating the time.
@@ -54,21 +54,27 @@ export class HackerNewsApiService {
   }
 
   /**
+   * Getter for total page
+   */
+  public getTotalPage(): number {
+    if (this.totalPage) {
+      return this.totalPage;
+    }
+    return null;
+  }
+
+  /**
    * Return an observable object that sends a HTTP GET request to HackerNews API
    * to obtain whole list of data for news items with given category.
    */
   public getNewsByCategory(category: string): Observable<object> {
     const reqUrl = prefix + category + suffix;
-    const length = 'length';
     console.log(reqUrl);
     return this.http.get(reqUrl)
       .pipe(
         // retry at most 3 times, timeout after 5 seconds
         retry(3),
-        timeout(5000),
-        tap(data => {
-          this.dataSize = data[length];
-        }));
+        timeout(5000));
   }
 
   /**
@@ -100,11 +106,16 @@ export class HackerNewsApiService {
    * The list of data is sliced according to page number and page size.
    */
   public getNewsForPage(category: string, pageNum: number, pageSize: number): Observable<object> {
+    const length = 'length';
     return this.getNewsByCategory(category)
       .pipe(
-        map(data => (data as Array<object>).slice((pageNum - 1) * pageSize + 1, pageNum * pageSize + 1)),
+        tap(data => {
+          this.totalPage = Math.ceil(data[length] / pageSize);
+        }),
+        map(data => (data as Array<object>)
+          .slice((pageNum - 1) * pageSize + 1, pageNum * pageSize + 1)),
         flatMap(data => from(data)),
-        flatMap(data => this.getNewsItemById(String(data)))
+        flatMap(data => this.getNewsItemById(String(data))),
       );
   }
 
