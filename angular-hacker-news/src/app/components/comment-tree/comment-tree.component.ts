@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class CommentTreeComponent implements OnInit {
   @Input() rootId: string;
-  public rootComment: any;
+  public rootComment: object;
   public loaded: boolean;
   public hide: boolean;
   constructor(

@@ -1,8 +1,8 @@
 <div class="loading-spinner" *ngIf="loading"></div>
 <div id="user-info-container" *ngIf="!loading">
-  <h3>User: {{userData.id}}</h3>
-  <p>Karma: {{userData.karma}}</p>
-  <p>Created: {{userData.created}}</p>
+  <h3>User: {{userData['id']}}</h3>
+  <p>Karma: {{userData['karma']}}</p>
+  <p>Created: {{userData['created']}}</p>
   <p>
     <a class="link link-color" (click)="openLink('submitted')">submissions</a>
      |

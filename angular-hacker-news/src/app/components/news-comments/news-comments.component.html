@@ -1,18 +1,18 @@
 <div class="loading-spinner" *ngIf="loading"></div>
 <div class="content-wrapper" *ngIf="!loading">
   <div class="separate-line">
-    <h3>{{newsData.title}}</h3>
-    <p><a class="link" (click)="openLink()">({{newsData.url}})</a></p>
+    <h3>{{newsData['title']}}</h3>
+    <p><a class="link" (click)="openLink()">({{newsData['url']}})</a></p>
   </div>
   <p>
-    {{newsData.score}} points by
-    <a class="link" [routerLink]="['/user', newsData.by]">{{newsData.by}}</a>
-    | {{newsData.time}}
+    {{newsData['score']}} points by
+    <a class="link" [routerLink]="['/user', newsData['by']]">{{newsData['by']}}</a>
+    | {{newsData['time']}}
   </p>
 </div>
 <div class="content-wrapper" *ngIf="!loading">
   <ul>
-    <li *ngFor="let id of newsData.kids">
+    <li *ngFor="let id of newsData['kids']">
       <app-comment-tree [rootId]="id"></app-comment-tree>
     </li>
   </ul>

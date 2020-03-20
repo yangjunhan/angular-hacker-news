@@ -9,7 +9,7 @@ import { HackerNewsApiService } from '../../services/hacker-news-api.service';
 })
 export class NewsCommentsComponent implements OnInit {
   private id: string;
-  public newsData: any;
+  public newsData: object;
   public loading: boolean;
 
   constructor(
@@ -39,6 +39,7 @@ export class NewsCommentsComponent implements OnInit {
    * Function to be a click event which opens a new tab of given URL
    */
   public openLink(): void {
-    window.open(this.newsData.url);
+    const url = 'url';
+    window.open(this.newsData[url]);
   }
 }

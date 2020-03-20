@@ -7,9 +7,10 @@ import {ActivatedRoute, Router} from '@angular/router';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
+
 export class UserComponent implements OnInit {
   public loading: boolean;
-  public userData: any;
+  public userData: object;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,6 +38,7 @@ export class UserComponent implements OnInit {
    * It takes a type input and redirect it to corresponding hacker news page for that type.
    */
   public openLink(type: string): void {
-    window.open('https://news.ycombinator.com/' + type + '?id=' + this.userData.id);
+    const id = 'id';
+    window.open('https://news.ycombinator.com/' + type + '?id=' + this.userData[id]);
   }
 }
