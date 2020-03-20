@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {from, Observable, of} from 'rxjs';
-import {retry, map, tap, flatMap, timeout, catchError} from 'rxjs/operators';
+import { from, Observable } from 'rxjs';
+import { retry, map, tap, flatMap, timeout } from 'rxjs/operators';
 
 const prefix = 'https://hacker-news.firebaseio.com/v0/';
 const newsPrefix = prefix + '/item/';
@@ -20,7 +20,6 @@ const suffix = '.json?print=pretty';
 export class HackerNewsApiService {
 
   constructor(private http: HttpClient) { }
-  private dataSource: Observable<object>;
   public dataSize: number;
 
   /**
@@ -58,8 +57,9 @@ export class HackerNewsApiService {
    * Return an observable object that sends a HTTP GET request to HackerNews API
    * to obtain whole list of data for news items with given category.
    */
-  public getNewsByCategory(category: string): Observable<any> {
+  public getNewsByCategory(category: string): Observable<object> {
     const reqUrl = prefix + category + suffix;
+    const length = 'length';
     console.log(reqUrl);
     return this.http.get(reqUrl)
       .pipe(
@@ -67,8 +67,7 @@ export class HackerNewsApiService {
         retry(3),
         timeout(5000),
         tap(data => {
-          this.dataSource = data;
-          this.dataSize = data.length;
+          this.dataSize = data[length];
         }));
   }
 
@@ -76,8 +75,9 @@ export class HackerNewsApiService {
    * Return an observable object that sends a HTTP GET request to HackerNews API
    * to obtain data for news item with given news ID
    */
-  public getNewsItemById(id: string): Observable<any> {
+  public getNewsItemById(id: string): Observable<object> {
     const reqUrl = newsPrefix + id + suffix;
+    const time = 'time';
     console.log(reqUrl);
     return this.http.get(reqUrl)
       .pipe(
@@ -87,7 +87,7 @@ export class HackerNewsApiService {
         map(data => {
           // format the time string
           if (data) {
-            (data as any).time = HackerNewsApiService.formatTime((data as any).time);
+            data[time] = HackerNewsApiService.formatTime(data[time]);
           }
           return data;
         }
@@ -99,10 +99,10 @@ export class HackerNewsApiService {
    * to obtain a list data for news with given category.
    * The list of data is sliced according to page number and page size.
    */
-  public getNewsForPage(category: string, pageNum: number, pageSize: number): Observable<any> {
+  public getNewsForPage(category: string, pageNum: number, pageSize: number): Observable<object> {
     return this.getNewsByCategory(category)
       .pipe(
-        map(data => data.slice((pageNum - 1) * pageSize + 1, pageNum * pageSize + 1)),
+        map(data => (data as Array<object>).slice((pageNum - 1) * pageSize + 1, pageNum * pageSize + 1)),
         flatMap(data => from(data)),
         flatMap(data => this.getNewsItemById(String(data)))
       );
@@ -112,8 +112,9 @@ export class HackerNewsApiService {
    * Return an observable object that sends a HTTP GET request to HackerNews API
    * to obtain data for a user with given username.
    */
-  public getUserByName(username: string): Observable<any> {
+  public getUserByName(username: string): Observable<object> {
     const reqUrl = userPrefix + username + suffix;
+    const created = 'created';
     return this.http.get(reqUrl)
       .pipe(
         // retry at most 3 times, timeout after 5 seconds
@@ -121,7 +122,7 @@ export class HackerNewsApiService {
         timeout(5000),
         map(data => {
           // format the time string
-          (data as any).created = HackerNewsApiService.formatTime((data as any).created);
+          data[created] = HackerNewsApiService.formatTime(data[created]);
           return data;
         }
       ));
@@ -131,8 +132,9 @@ export class HackerNewsApiService {
    * Return an observable object that sends a HTTP GET request to HackerNews API
    * to obtain data for news comment with given comment ID.
    */
-  public getCommentById(commentId: string): Observable<any> {
+  public getCommentById(commentId: string): Observable<object> {
     const reqUrl = newsPrefix + commentId + suffix;
+    const time = 'time';
     return this.http.get(reqUrl)
       .pipe(
         // retry at most 3 times, timeout after 5 seconds
@@ -140,7 +142,7 @@ export class HackerNewsApiService {
         timeout(5000),
         map(data => {
           // format the time string
-          (data as any).time = HackerNewsApiService.formatTime((data as any).time);
+          data[time] = HackerNewsApiService.formatTime(data[time]);
           return data;
         }
       ));
