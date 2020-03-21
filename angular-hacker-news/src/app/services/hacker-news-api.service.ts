@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest
+} from '@angular/common/http';
 import { from, Observable } from 'rxjs';
 import { retry, map, tap, flatMap, timeout } from 'rxjs/operators';
 
@@ -17,11 +23,10 @@ const suffix = '.json?print=pretty';
  * The static prefix and suffix of GET URL is provided from the HackerNews API documentation:
  * https://github.com/HackerNews/API
  */
-export class HackerNewsApiService {
+export class HackerNewsApiService implements HttpInterceptor {
 
   constructor(private http: HttpClient) { }
   private totalPage: number;
-
   /**
    * convert from given Unix time input to a pretty string indicating the time.
    * e.g. 10 hours age, 3 days ago.
@@ -53,6 +58,15 @@ export class HackerNewsApiService {
     return timeStr;
   }
 
+  // tslint:disable-next-line:no-any
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    return next.handle(req)
+      .pipe(
+        // retry at most 3 times, timeout after 5 seconds
+        retry(3),
+        timeout(5000));
+  }
+
   /**
    * Getter for total page
    */
@@ -70,11 +84,7 @@ export class HackerNewsApiService {
   public getNewsByCategory(category: string): Observable<object> {
     const reqUrl = prefix + category + suffix;
     // console.log(reqUrl);
-    return this.http.get(reqUrl)
-      .pipe(
-        // retry at most 3 times, timeout after 5 seconds
-        retry(3),
-        timeout(5000));
+    return this.http.get(reqUrl);
   }
 
   /**
@@ -87,9 +97,6 @@ export class HackerNewsApiService {
     // console.log(reqUrl);
     return this.http.get(reqUrl)
       .pipe(
-        // retry at most 3 times, timeout after 5 seconds
-        retry(3),
-        timeout(5000),
         map(data => {
           // format the time string
           if (data) {
@@ -128,9 +135,6 @@ export class HackerNewsApiService {
     const created = 'created';
     return this.http.get(reqUrl)
       .pipe(
-        // retry at most 3 times, timeout after 5 seconds
-        retry(3),
-        timeout(5000),
         map(data => {
           // format the time string
           data[created] = HackerNewsApiService.formatTime(data[created]);
@@ -148,9 +152,6 @@ export class HackerNewsApiService {
     const time = 'time';
     return this.http.get(reqUrl)
       .pipe(
-        // retry at most 3 times, timeout after 5 seconds
-        retry(3),
-        timeout(5000),
         map(data => {
           // format the time string
           data[time] = HackerNewsApiService.formatTime(data[time]);

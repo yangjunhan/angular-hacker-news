@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -11,6 +11,7 @@ import { UserComponent } from './components/user/user.component';
 import { NewsCommentsComponent } from './components/news-comments/news-comments.component';
 import { CommentTreeComponent } from './components/comment-tree/comment-tree.component';
 import { ErrorsComponent } from './components/errors/errors.component';
+import { HackerNewsApiService } from './services/hacker-news-api.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { ErrorsComponent } from './components/errors/errors.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: HackerNewsApiService, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
