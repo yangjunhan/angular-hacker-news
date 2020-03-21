@@ -7,12 +7,8 @@ import { ErrorsComponent } from './components/errors/errors.component';
 
 const routes: Routes = [
   // store category info in route data, which can be retrieved in snapshot conveniently
-  {path: 'topstories', data: {category: 'topstories'}, component: NewsListComponent},
-  {path: '', redirectTo: 'topstories', pathMatch: 'full'},
-  {path: 'newstories', data: {category: 'newstories'}, component: NewsListComponent},
-  {path: 'askstories', data: {category: 'askstories'}, component: NewsListComponent},
-  {path: 'showstories', data: {category: 'showstories'}, component: NewsListComponent},
-  {path: 'jobstories', data: {category: 'jobstories'}, component: NewsListComponent},
+  {path: 'news/:category', component: NewsListComponent},
+  {path: '', redirectTo: 'news/topstories', pathMatch: 'full'},
   {path: 'user/:username', component: UserComponent},
   {path: 'comments/:id', component: NewsCommentsComponent},
   {path: 'errors', component: ErrorsComponent}

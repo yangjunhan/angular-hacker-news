@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HackerNewsApiService } from '../../services/hacker-news-api.service';
 import { switchMap } from 'rxjs/operators';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-news-list',
@@ -26,21 +27,23 @@ export class NewsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    // use snapshot to get the static data of category
-    this.category = this.route.snapshot.data.category || this.default;
-    this.route.queryParams
+    // use combineLatest to bind both paramMap and queryParamMap
+    combineLatest([this.route.paramMap, this.route.queryParamMap])
       // use switchMap to control the data stream received
-      .pipe(switchMap(params => {
-        // get current page number and initialise data list
-        this.pageNum = +params.page || 1;
-        this.newsItems = [];
-        console.log('Current category is ' + this.category);
-        return this.api.getNewsForPage(this.category, this.pageNum, this.pageSize);
+      .pipe(
+        switchMap(([paramMap, queryParamMap]) => {
+          // get current category and page number, and initialise data list
+          this.category = paramMap.get('category') || this.default;
+          this.pageNum = +queryParamMap.get('page') || 1;
+          this.newsItems = [];
+          console.log('Current page number is ' + this.pageNum);
+          console.log('Current category is ' + this.category);
+          return this.api.getNewsForPage(this.category, this.pageNum, this.pageSize);
       }))
       .subscribe(
         data => {
           if (data) {
-            console.log(data);
+            // console.log(data);
             this.totalPage = this.api.getTotalPage();
             this.newsItems.push(data);
           }
@@ -75,7 +78,7 @@ export class NewsListComponent implements OnInit {
    * Navigate to page with new category and/or new page number
    */
   public navigateTo(newCategory: string, newPageNum: number): Promise<boolean> {
-    return this.router.navigate(['/' + this.category], {
+    return this.router.navigate(['/news', newCategory], {
       queryParams: {page: newPageNum}
     });
   }

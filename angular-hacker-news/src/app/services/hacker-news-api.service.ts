@@ -69,7 +69,7 @@ export class HackerNewsApiService {
    */
   public getNewsByCategory(category: string): Observable<object> {
     const reqUrl = prefix + category + suffix;
-    console.log(reqUrl);
+    // console.log(reqUrl);
     return this.http.get(reqUrl)
       .pipe(
         // retry at most 3 times, timeout after 5 seconds
@@ -84,7 +84,7 @@ export class HackerNewsApiService {
   public getNewsItemById(id: string): Observable<object> {
     const reqUrl = newsPrefix + id + suffix;
     const time = 'time';
-    console.log(reqUrl);
+    // console.log(reqUrl);
     return this.http.get(reqUrl)
       .pipe(
         // retry at most 3 times, timeout after 5 seconds
