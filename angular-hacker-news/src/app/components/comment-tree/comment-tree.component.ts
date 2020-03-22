@@ -1,4 +1,10 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit
+} from '@angular/core';
 import { HackerNewsApiService } from '../../services/hacker-news-api.service';
 import { Router } from '@angular/router';
 
@@ -15,25 +21,28 @@ export class CommentTreeComponent implements OnInit {
   public hide: boolean;
   constructor(
     private api: HackerNewsApiService,
-    private  router: Router,
+    private router: Router,
     private cdr: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.loaded = false;
     this.hide = true;
-    this.api.getCommentById(this.rootId).subscribe(data => {
-      if (data) {
-        this.rootComment = data;
-        // call markForCheck() to update the view
-        this.cdr.markForCheck();
+    this.api.getCommentById(this.rootId).subscribe(
+      data => {
+        if (data) {
+          this.rootComment = data;
+          // call markForCheck() to update the view
+          this.cdr.markForCheck();
+        }
+        // all data has been stored, set loaded variable to be true
+        this.loaded = true;
+      },
+      error => {
+        console.log(error);
+        return this.router.navigate(['/errors']);
       }
-      // all data has been stored, set loaded variable to be true
-      this.loaded = true;
-    }, error => {
-      console.log(error);
-      return this.router.navigate(['/errors']);
-    });
+    );
   }
 
   public toggleHide(): void {

@@ -1,8 +1,13 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {HackerNewsApiService} from '../../services/hacker-news-api.service';
-import {switchMap} from 'rxjs/operators';
-import {combineLatest} from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit
+} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HackerNewsApiService } from '../../services/hacker-news-api.service';
+import { switchMap } from 'rxjs/operators';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-news-list',
@@ -23,9 +28,9 @@ export class NewsListComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private api: HackerNewsApiService,
-    private  router: Router,
+    private router: Router,
     private cdr: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.loading = true;
@@ -40,8 +45,13 @@ export class NewsListComponent implements OnInit {
           this.newsItems = [];
           console.log('Current page number is ' + this.pageNum);
           console.log('Current category is ' + this.category);
-          return this.api.getNewsForPage(this.category, this.pageNum, this.pageSize);
-      }))
+          return this.api.getNewsForPage(
+            this.category,
+            this.pageNum,
+            this.pageSize
+          );
+        })
+      )
       .subscribe(
         data => {
           if (data) {
@@ -52,10 +62,12 @@ export class NewsListComponent implements OnInit {
           }
           // all data has been stored, set loading variable to be false
           this.loading = false;
-        }, error => {
+        },
+        error => {
           console.log(error);
           return this.router.navigate(['/errors']);
-        });
+        }
+      );
   }
 
   /**
@@ -83,7 +95,7 @@ export class NewsListComponent implements OnInit {
    */
   public navigateTo(newCategory: string, newPageNum: number): Promise<boolean> {
     return this.router.navigate(['/news', newCategory], {
-      queryParams: {page: newPageNum}
+      queryParams: { page: newPageNum }
     });
   }
 }

@@ -25,8 +25,7 @@ const suffix = '.json?print=pretty';
  * https://github.com/HackerNews/API
  */
 export class HackerNewsApiService implements HttpInterceptor {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
   private totalPage: number;
   /**
    * Use formatDistanceToNow from date-fns to compute the time distance string
@@ -39,12 +38,15 @@ export class HackerNewsApiService implements HttpInterceptor {
   }
 
   // tslint:disable-next-line:no-any
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(req)
-      .pipe(
-        // timeout after 3 seconds per request, retry at most 3 times
-        timeout(3000),
-        retry(3));
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    return next.handle(req).pipe(
+      // timeout after 3 seconds per request, retry at most 3 times
+      timeout(3000),
+      retry(3)
+    );
   }
 
   /**
@@ -75,16 +77,15 @@ export class HackerNewsApiService implements HttpInterceptor {
     const reqUrl = newsPrefix + id + suffix;
     const time = 'time';
     // console.log(reqUrl);
-    return this.http.get(reqUrl)
-      .pipe(
-        map(data => {
-          // format the time string
-          if (data) {
-            data[time] = HackerNewsApiService.formatTime(data[time]);
-          }
-          return data;
+    return this.http.get(reqUrl).pipe(
+      map(data => {
+        // format the time string
+        if (data) {
+          data[time] = HackerNewsApiService.formatTime(data[time]);
         }
-      ));
+        return data;
+      })
+    );
   }
 
   /**
@@ -92,18 +93,25 @@ export class HackerNewsApiService implements HttpInterceptor {
    * to obtain a list data for news with given category.
    * The list of data is sliced according to page number and page size.
    */
-  public getNewsForPage(category: string, pageNum: number, pageSize: number): Observable<object> {
+  public getNewsForPage(
+    category: string,
+    pageNum: number,
+    pageSize: number
+  ): Observable<object> {
     const length = 'length';
-    return this.getNewsByCategory(category)
-      .pipe(
-        tap(data => {
-          this.totalPage = Math.ceil(data[length] / pageSize);
-        }),
-        map(data => (data as Array<object>)
-          .slice((pageNum - 1) * pageSize + 1, pageNum * pageSize + 1)),
-        flatMap(data => from(data)),
-        flatMap(data => this.getNewsItemById(String(data))),
-      );
+    return this.getNewsByCategory(category).pipe(
+      tap(data => {
+        this.totalPage = Math.ceil(data[length] / pageSize);
+      }),
+      map(data =>
+        (data as Array<object>).slice(
+          (pageNum - 1) * pageSize + 1,
+          pageNum * pageSize + 1
+        )
+      ),
+      flatMap(data => from(data)),
+      flatMap(data => this.getNewsItemById(String(data)))
+    );
   }
 
   /**
@@ -113,14 +121,13 @@ export class HackerNewsApiService implements HttpInterceptor {
   public getUserByName(username: string): Observable<object> {
     const reqUrl = userPrefix + username + suffix;
     const created = 'created';
-    return this.http.get(reqUrl)
-      .pipe(
-        map(data => {
-          // format the time string
-          data[created] = HackerNewsApiService.formatTime(data[created]);
-          return data;
-        }
-      ));
+    return this.http.get(reqUrl).pipe(
+      map(data => {
+        // format the time string
+        data[created] = HackerNewsApiService.formatTime(data[created]);
+        return data;
+      })
+    );
   }
 
   /**
@@ -130,13 +137,12 @@ export class HackerNewsApiService implements HttpInterceptor {
   public getCommentById(commentId: string): Observable<object> {
     const reqUrl = newsPrefix + commentId + suffix;
     const time = 'time';
-    return this.http.get(reqUrl)
-      .pipe(
-        map(data => {
-          // format the time string
-          data[time] = HackerNewsApiService.formatTime(data[time]);
-          return data;
-        }
-      ));
+    return this.http.get(reqUrl).pipe(
+      map(data => {
+        // format the time string
+        data[time] = HackerNewsApiService.formatTime(data[time]);
+        return data;
+      })
+    );
   }
 }

@@ -1,4 +1,9 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit
+} from '@angular/core';
 
 @Component({
   selector: 'app-news-item',
@@ -17,7 +22,7 @@ export class NewsItemComponent implements OnInit {
   @Input() comments: number;
   public domain: string;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.domain = this.getDomain(this.url);

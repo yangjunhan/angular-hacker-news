@@ -1,6 +1,11 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit
+} from '@angular/core';
 import { HackerNewsApiService } from '../../services/hacker-news-api.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -8,7 +13,6 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./user.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class UserComponent implements OnInit {
   public loading: boolean;
   public userData: object;
@@ -16,25 +20,28 @@ export class UserComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private api: HackerNewsApiService,
-    private  router: Router,
+    private router: Router,
     private cdr: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.loading = true;
     this.route.params.subscribe(params => {
-      this.api.getUserByName(params.username).subscribe(data => {
-        if (data) {
-          this.userData = data;
-          // call markForCheck() to update the view
-          this.cdr.markForCheck();
+      this.api.getUserByName(params.username).subscribe(
+        data => {
+          if (data) {
+            this.userData = data;
+            // call markForCheck() to update the view
+            this.cdr.markForCheck();
+          }
+          // all data has been stored, set loading variable to be false
+          this.loading = false;
+        },
+        error => {
+          console.log(error);
+          return this.router.navigate(['/errors']);
         }
-        // all data has been stored, set loading variable to be false
-        this.loading = false;
-      }, error => {
-        console.log(error);
-        return this.router.navigate(['/errors']);
-      });
+      );
     });
   }
 
@@ -44,6 +51,8 @@ export class UserComponent implements OnInit {
    */
   public openLink(type: string): void {
     const id = 'id';
-    window.open('https://news.ycombinator.com/' + type + '?id=' + this.userData[id]);
+    window.open(
+      'https://news.ycombinator.com/' + type + '?id=' + this.userData[id]
+    );
   }
 }
