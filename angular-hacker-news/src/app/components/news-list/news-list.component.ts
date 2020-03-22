@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { HackerNewsApiService } from '../../services/hacker-news-api.service';
-import { switchMap } from 'rxjs/operators';
-import { combineLatest } from 'rxjs';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {HackerNewsApiService} from '../../services/hacker-news-api.service';
+import {switchMap} from 'rxjs/operators';
+import {combineLatest} from 'rxjs';
 
 @Component({
   selector: 'app-news-list',
   templateUrl: './news-list.component.html',
-  styleUrls: ['./news-list.component.css']
+  styleUrls: ['./news-list.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NewsListComponent implements OnInit {
   // set default news category as 'topstories' and page max size as 20
@@ -22,7 +23,8 @@ export class NewsListComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private api: HackerNewsApiService,
-    private  router: Router
+    private  router: Router,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -43,10 +45,12 @@ export class NewsListComponent implements OnInit {
       .subscribe(
         data => {
           if (data) {
-            // console.log(data);
             this.totalPage = this.api.getTotalPage();
             this.newsItems.push(data);
+            // call markForCheck() to update the view
+            this.cdr.markForCheck();
           }
+          // all data has been stored, set loading variable to be false
           this.loading = false;
         }, error => {
           console.log(error);

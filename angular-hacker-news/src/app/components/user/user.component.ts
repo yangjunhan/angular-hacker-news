@@ -1,11 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { HackerNewsApiService } from '../../services/hacker-news-api.service';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  styleUrls: ['./user.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class UserComponent implements OnInit {
@@ -15,16 +16,20 @@ export class UserComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private api: HackerNewsApiService,
-    private  router: Router
+    private  router: Router,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
     this.loading = true;
     this.route.params.subscribe(params => {
       this.api.getUserByName(params.username).subscribe(data => {
-        console.log(data);
-        this.userData = data;
-        // all data has been stored, set loaded variable to be true
+        if (data) {
+          this.userData = data;
+          // call markForCheck() to update the view
+          this.cdr.markForCheck();
+        }
+        // all data has been stored, set loading variable to be false
         this.loading = false;
       }, error => {
         console.log(error);
