@@ -8,6 +8,7 @@ import {
 } from '@angular/common/http';
 import { from, Observable } from 'rxjs';
 import { retry, map, tap, flatMap, timeout } from 'rxjs/operators';
+import { formatDistanceToNow } from 'date-fns';
 
 const prefix = 'https://hacker-news.firebaseio.com/v0/';
 const newsPrefix = prefix + '/item/';
@@ -28,34 +29,13 @@ export class HackerNewsApiService implements HttpInterceptor {
   constructor(private http: HttpClient) { }
   private totalPage: number;
   /**
-   * convert from given Unix time input to a pretty string indicating the time.
-   * e.g. 10 hours age, 3 days ago.
+   * Use formatDistanceToNow from date-fns to compute the time distance string,
+   * and convert to a pretty string indicating the time of creation of the given text.
+   * e.g. about 10 hours age, about 3 days ago.
    */
   static formatTime(timespan: number): string {
-    let timeStr;
-    const dateTime = new Date(1000 * timespan);
-    const year = dateTime.getFullYear();
-    const month = dateTime.getMonth();
-    const day = dateTime.getDate();
-    const hour = dateTime.getHours();
-    const minute = dateTime.getMinutes();
-    const now = new Date();
-    const secondsDiff = now.valueOf() / 1000 - timespan;
-
-    if (secondsDiff <= 60) {
-      timeStr = 'Just now';
-    }  else if (60 < secondsDiff && secondsDiff <= 60 * 60) {
-      timeStr = Math.round((secondsDiff / (60))) + ' minutes ago';
-    }  else if (60 * 60 < secondsDiff && secondsDiff <= 60 * 60 * 24) {
-      timeStr = Math.round(secondsDiff / (60 * 60)) + ' hours ago';
-    }  else if (60 * 60 * 24 < secondsDiff && secondsDiff <= 60 * 60 * 24 * 15) {
-      timeStr = Math.round(secondsDiff / (60 * 60 * 24)) + ' days ago';
-    }  else if (secondsDiff > 60 * 60 * 24 * 15 && year === now.getFullYear()) {
-      timeStr = month + '-' + day + ' ' + hour + ':' + minute;
-    } else {
-      timeStr = year + '-' + month + '-' + day + ' ' + hour + ':' + minute;
-    }
-    return timeStr;
+    const date = new Date(1000 * timespan);
+    return formatDistanceToNow(date) + ' ago';
   }
 
   // tslint:disable-next-line:no-any
