@@ -29,9 +29,9 @@ export class HackerNewsApiService implements HttpInterceptor {
   constructor(private http: HttpClient) { }
   private totalPage: number;
   /**
-   * Use formatDistanceToNow from date-fns to compute the time distance string,
-   * and convert to a pretty string indicating the time of creation of the given text.
-   * e.g. about 10 hours age, about 3 days ago.
+   * Use formatDistanceToNow from date-fns to compute the time distance string
+   * based on the Unix time input, indicating the time of creation of the given text.
+   * e.g. about 10 hours age, 3 days ago.
    */
   static formatTime(timespan: number): string {
     const date = new Date(1000 * timespan);
