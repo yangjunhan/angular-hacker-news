@@ -42,9 +42,9 @@ export class HackerNewsApiService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req)
       .pipe(
-        // retry at most 3 times, timeout after 5 seconds
-        retry(3),
-        timeout(5000));
+        // timeout after 3 seconds per request, retry at most 3 times
+        timeout(3000),
+        retry(3));
   }
 
   /**
