@@ -43,7 +43,7 @@ export class HackerNewsApiService implements HttpInterceptor {
     /**
      * Getter for total page
      */
-    public getTotalPage(): number {
+    public get _totalPage(): number {
         if (this.totalPage) {
             return this.totalPage;
         }

@@ -46,7 +46,7 @@ export class NewsListComponent implements OnInit {
             .subscribe(
                 data => {
                     if (data) {
-                        this.totalPage = this.api.getTotalPage();
+                        this.totalPage = this.api._totalPage;
                         this.newsItems.push(data);
                         // call markForCheck() to update the view
                         this.cdr.markForCheck();
