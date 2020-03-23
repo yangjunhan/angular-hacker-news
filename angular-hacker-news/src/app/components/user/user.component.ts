@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { HackerNewsApiService } from '../../services/hacker-news-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from '../../Interfaces/user';
 
 @Component({
     selector: 'app-user',
@@ -10,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class UserComponent implements OnInit {
     public loading: boolean;
-    public userData: object;
+    public userData: User;
 
     constructor(
         private route: ActivatedRoute,
@@ -25,7 +26,7 @@ export class UserComponent implements OnInit {
             this.api.getUserByName(params.username).subscribe(
                 data => {
                     if (data) {
-                        this.userData = data;
+                        this.userData = data as User;
                         // call markForCheck() to update the view
                         this.cdr.markForCheck();
                     }
@@ -45,7 +46,6 @@ export class UserComponent implements OnInit {
      * It takes a type input and redirect it to corresponding hacker news page for that type.
      */
     public openLink(type: string): void {
-        const id = 'id';
-        window.open('https://news.ycombinator.com/' + type + '?id=' + this.userData[id]);
+        window.open('https://news.ycombinator.com/' + type + '?id=' + this.userData.id);
     }
 }

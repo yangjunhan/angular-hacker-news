@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HackerNewsApiService } from '../../services/hacker-news-api.service';
+import { NewsItem } from '../../Interfaces/newsItem';
 
 @Component({
     selector: 'app-news-comments',
@@ -10,7 +11,7 @@ import { HackerNewsApiService } from '../../services/hacker-news-api.service';
 })
 export class NewsCommentsComponent implements OnInit {
     private id: string;
-    public newsData: object;
+    public newsData: NewsItem;
     public loading: boolean;
 
     constructor(
@@ -28,7 +29,7 @@ export class NewsCommentsComponent implements OnInit {
             this.api.getNewsItemById(this.id).subscribe(
                 data => {
                     if (data) {
-                        this.newsData = data;
+                        this.newsData = data as NewsItem;
                         // call markForCheck() to update the view
                         this.cdr.markForCheck();
                     }
@@ -47,7 +48,6 @@ export class NewsCommentsComponent implements OnInit {
      * Function to be a click event which opens a new tab of given URL
      */
     public openLink(): void {
-        const url = 'url';
-        window.open(this.newsData[url]);
+        window.open(this.newsData.url);
     }
 }

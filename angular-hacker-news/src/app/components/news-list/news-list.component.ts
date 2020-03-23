@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HackerNewsApiService } from '../../services/hacker-news-api.service';
 import { switchMap } from 'rxjs/operators';
 import { combineLatest } from 'rxjs';
+import { NewsItem } from '../../Interfaces/newsItem';
 
 @Component({
     selector: 'app-news-list',
@@ -15,7 +16,7 @@ export class NewsListComponent implements OnInit {
     private default = 'topstories';
     public pageSize = 20;
     public category: string;
-    public newsItems: Array<object>;
+    public newsItems: Array<NewsItem>;
     public pageNum: number;
     public totalPage: number;
     public loading: boolean;
@@ -47,7 +48,7 @@ export class NewsListComponent implements OnInit {
                 data => {
                     if (data) {
                         this.totalPage = this.api._totalPage;
-                        this.newsItems.push(data);
+                        this.newsItems.push(data as NewsItem);
                         // call markForCheck() to update the view
                         this.cdr.markForCheck();
                     }

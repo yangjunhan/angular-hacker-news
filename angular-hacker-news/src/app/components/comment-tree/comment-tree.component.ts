@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { HackerNewsApiService } from '../../services/hacker-news-api.service';
 import { Router } from '@angular/router';
+import { Comment } from '../../Interfaces/comment';
 
 @Component({
     selector: 'app-comment-tree',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class CommentTreeComponent implements OnInit {
     @Input() rootId: string;
-    public rootComment: object;
+    public rootComment: Comment;
     public loaded: boolean;
     public hide: boolean;
     constructor(private api: HackerNewsApiService, private router: Router, private cdr: ChangeDetectorRef) {}
@@ -21,7 +22,7 @@ export class CommentTreeComponent implements OnInit {
         this.api.getCommentById(this.rootId).subscribe(
             data => {
                 if (data) {
-                    this.rootComment = data;
+                    this.rootComment = data as Comment;
                     // call markForCheck() to update the view
                     this.cdr.markForCheck();
                 }

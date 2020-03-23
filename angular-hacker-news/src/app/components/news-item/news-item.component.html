@@ -1,15 +1,15 @@
 <div>
-  <p (click)="openLink()">
-    <a id="index">{{index}}. </a>
-    <span class="link">{{title}} </span>
-    <small class="link">({{domain}})</small>
-  </p>
-  <p>
-    <small>
-      {{score}} points by
-      <a class="link" [routerLink]="['/user', by]">{{by}}</a>
-      | {{time}} |
-      <a class="link" [routerLink]="['/comments', id]">{{comments}} comments</a>
-    </small>
-  </p>
+    <p (click)="openLink()">
+        <a id="index">{{ index }}. </a>
+        <span class="link">{{ title }} </span>
+        <small class="link">({{ domain }})</small>
+    </p>
+    <p>
+        <small>
+            {{ score }} points by
+            <a class="link" [routerLink]="['/user', by]">{{ by }}</a>
+            | {{ time }} |
+            <a class="link" [routerLink]="['/comments', id]">{{ comments }} comments</a>
+        </small>
+    </p>
 </div>
