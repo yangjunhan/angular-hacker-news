@@ -1,8 +1,5 @@
 {
-  "extends": [
-    "tslint:latest",
-    "tslint-config-prettier"
-  ],
+  "extends": "tslint:recommended",
   "rules": {
     "array-type": false,
     "arrow-parens": false,
@@ -92,5 +89,4 @@
   "rulesDirectory": [
     "codelyzer"
   ]
-
 }
