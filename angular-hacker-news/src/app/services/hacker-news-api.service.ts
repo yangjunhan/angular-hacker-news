@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import {
+    HttpClient,
+    HttpErrorResponse,
+    HttpEvent,
+    HttpHandler,
+    HttpInterceptor,
+    HttpRequest,
+} from '@angular/common/http';
 import { from, Observable, throwError } from 'rxjs';
 import { retry, map, tap, flatMap, timeout, catchError } from 'rxjs/operators';
 import { formatDistanceToNow } from 'date-fns';
@@ -20,6 +27,16 @@ const suffix = '.json?print=pretty';
  */
 export class HackerNewsApiService implements HttpInterceptor {
     constructor(private http: HttpClient) {}
+
+    /**
+     * Getter for total page
+     */
+    public get _totalPage(): number {
+        if (this.totalPage) {
+            return this.totalPage;
+        }
+        return null;
+    }
     private totalPage: number;
     /**
      * Use formatDistanceToNow from date-fns to compute the time distance string
@@ -31,26 +48,31 @@ export class HackerNewsApiService implements HttpInterceptor {
         return formatDistanceToNow(date) + ' ago';
     }
 
-    // tslint:disable-next-line:no-any
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        return next.handle(req).pipe(
-            // retry at most 3 times, timeout after 15 seconds by default,
-            retry(3),
-            timeout(15000),
-            catchError(err => {
-                return throwError(err.message);
-            }),
-        );
+    /**
+     * Error handler for intercept function
+     */
+    handleError(error: HttpErrorResponse) {
+        let errorMessage;
+        if (error.error instanceof ErrorEvent) {
+            // Client-side errors
+            errorMessage = 'Error: ' + error.error.message;
+        } else {
+            // Server-side errors
+            errorMessage = 'Error Code: ' + error.status + '\nMessage: ' + error.message;
+        }
+        return throwError(errorMessage);
     }
 
     /**
-     * Getter for total page
+     *  Implement intercept function in HttpInterceptor interface
      */
-    public get _totalPage(): number {
-        if (this.totalPage) {
-            return this.totalPage;
-        }
-        return null;
+    // tslint:disable-next-line:no-any
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        return next.handle(req).pipe(
+            // retry at most 3 times
+            retry(3),
+            catchError(this.handleError),
+        );
     }
 
     /**
