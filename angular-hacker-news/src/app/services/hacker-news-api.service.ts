@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { from, Observable } from 'rxjs';
-import { retry, map, tap, flatMap, timeout } from 'rxjs/operators';
+import { from, Observable, throwError } from 'rxjs';
+import { retry, map, tap, flatMap, timeout, catchError } from 'rxjs/operators';
 import { formatDistanceToNow } from 'date-fns';
 
 const prefix = 'https://hacker-news.firebaseio.com/v0/';
@@ -34,9 +34,12 @@ export class HackerNewsApiService implements HttpInterceptor {
     // tslint:disable-next-line:no-any
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req).pipe(
-            // timeout after 3 seconds per request, retry at most 3 times
-            timeout(3000),
+            // retry at most 3 times, timeout after 15 seconds by default,
             retry(3),
+            timeout(15000),
+            catchError(err => {
+                return throwError(err.message);
+            }),
         );
     }
 
