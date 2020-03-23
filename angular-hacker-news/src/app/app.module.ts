@@ -14,21 +14,19 @@ import { ErrorsComponent } from './components/errors/errors.component';
 import { HackerNewsApiService } from './services/hacker-news-api.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    NewsListComponent,
-    NewsItemComponent,
-    UserComponent,
-    NewsCommentsComponent,
-    CommentTreeComponent,
-    ErrorsComponent
-  ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: HackerNewsApiService, multi: true }
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        HeaderComponent,
+        FooterComponent,
+        NewsListComponent,
+        NewsItemComponent,
+        UserComponent,
+        NewsCommentsComponent,
+        CommentTreeComponent,
+        ErrorsComponent,
+    ],
+    imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+    providers: [{ provide: HTTP_INTERCEPTORS, useClass: HackerNewsApiService, multi: true }],
+    bootstrap: [AppComponent],
 })
 export class AppModule {}
