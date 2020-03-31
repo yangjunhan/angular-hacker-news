@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HackerNewsApiService } from '../../services/hacker-news-api.service';
 import { switchMap } from 'rxjs/operators';
 import { combineLatest } from 'rxjs';
-import { NewsItem } from '../../Interfaces/newsItem';
+import { NewsItem } from '../../interfaces/newsItem';
 
 @Component({
     selector: 'app-news-list',

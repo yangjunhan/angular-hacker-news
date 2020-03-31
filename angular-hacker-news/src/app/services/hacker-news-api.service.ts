@@ -1,18 +1,11 @@
 import { Injectable } from '@angular/core';
-import {
-    HttpClient,
-    HttpErrorResponse,
-    HttpEvent,
-    HttpHandler,
-    HttpInterceptor,
-    HttpRequest,
-} from '@angular/common/http';
-import { from, Observable, throwError } from 'rxjs';
-import { retry, map, tap, flatMap, catchError } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { from, Observable } from 'rxjs';
+import { map, tap, flatMap } from 'rxjs/operators';
 import { formatDistanceToNow } from 'date-fns';
-import { User } from '../Interfaces/user';
-import { NewsItem } from '../Interfaces/newsItem';
-import { Comment } from '../Interfaces/comment';
+import { User } from '../interfaces/user';
+import { NewsItem } from '../interfaces/newsItem';
+import { Comment } from '../interfaces/comment';
 
 const prefix = 'https://hacker-news.firebaseio.com/v0/';
 const newsPrefix = prefix + '/item/';
@@ -28,7 +21,7 @@ const suffix = '.json?print=pretty';
  * The static prefix and suffix of GET URL is provided from the HackerNews API documentation:
  * https://github.com/HackerNews/API
  */
-export class HackerNewsApiService implements HttpInterceptor {
+export class HackerNewsApiService {
     constructor(private http: HttpClient) {}
 
     /**
@@ -49,33 +42,6 @@ export class HackerNewsApiService implements HttpInterceptor {
     static formatTime(timespan: number): string {
         const date = new Date(1000 * timespan);
         return formatDistanceToNow(date) + ' ago';
-    }
-
-    /**
-     * Error handler for intercept function
-     */
-    handleError(error: HttpErrorResponse) {
-        let errorMessage;
-        if (error.error instanceof ErrorEvent) {
-            // Client-side errors
-            errorMessage = 'Error: ' + error.error.message;
-        } else {
-            // Server-side errors
-            errorMessage = 'Error Code: ' + error.status + '\nMessage: ' + error.message;
-        }
-        return throwError(errorMessage);
-    }
-
-    /**
-     *  Implement intercept function in HttpInterceptor interface
-     */
-    // tslint:disable-next-line:no-any
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        return next.handle(req).pipe(
-            // retry at most 3 times
-            retry(3),
-            catchError(this.handleError),
-        );
     }
 
     /**

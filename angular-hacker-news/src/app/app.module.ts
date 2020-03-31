@@ -11,7 +11,7 @@ import { UserComponent } from './components/user/user.component';
 import { NewsCommentsComponent } from './components/news-comments/news-comments.component';
 import { CommentTreeComponent } from './components/comment-tree/comment-tree.component';
 import { ErrorsComponent } from './components/errors/errors.component';
-import { HackerNewsApiService } from './services/hacker-news-api.service';
+import { HttpRetryInterceptor } from './interceptor/http-retry.interceptor';
 
 @NgModule({
     declarations: [
@@ -26,7 +26,7 @@ import { HackerNewsApiService } from './services/hacker-news-api.service';
         ErrorsComponent,
     ],
     imports: [BrowserModule, AppRoutingModule, HttpClientModule],
-    providers: [{ provide: HTTP_INTERCEPTORS, useClass: HackerNewsApiService, multi: true }],
+    providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpRetryInterceptor, multi: true }],
     bootstrap: [AppComponent],
 })
 export class AppModule {}
