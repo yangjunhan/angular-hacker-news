@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HackerNewsApiService } from '../../services/hacker-news-api.service';
 import { switchMap } from 'rxjs/operators';
 import { combineLatest } from 'rxjs';
-import { NewsItem } from '../../interfaces/newsItem';
+import { HackerNewsApiService } from '@services/hacker-news-api.service';
+import { NewsItem } from '@interfaces/newsItem';
 
 @Component({
     selector: 'app-news-list',

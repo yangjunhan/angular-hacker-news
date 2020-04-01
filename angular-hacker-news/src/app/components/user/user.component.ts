@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { HackerNewsApiService } from '../../services/hacker-news-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from '../../interfaces/user';
+import { HackerNewsApiService } from '@services/hacker-news-api.service';
+import { User } from '@interfaces/user';
 
 @Component({
     selector: 'app-user',

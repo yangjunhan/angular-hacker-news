@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { HackerNewsApiService } from '../../services/hacker-news-api.service';
+import { HackerNewsApiService } from '@services/hacker-news-api.service';
 import { Router } from '@angular/router';
-import { Comment } from '../../interfaces/comment';
+import { Comment } from '@interfaces/comment';
 
 @Component({
     selector: 'app-comment-tree',
