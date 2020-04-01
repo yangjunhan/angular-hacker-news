@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ErrorsComponent } from './errors.component';
+import { ErrorsComponent } from 'errors/errors.component';
 
 describe('ErrorsComponent', () => {
     let component: ErrorsComponent;

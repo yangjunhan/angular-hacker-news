@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewsItemComponent } from './news-item.component';
+import { NewsItemComponent } from 'news-item/news-item.component';
 
 describe('NewsItemComponent', () => {
     let component: NewsItemComponent;

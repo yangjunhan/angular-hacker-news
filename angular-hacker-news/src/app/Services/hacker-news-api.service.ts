@@ -3,9 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { from, Observable } from 'rxjs';
 import { map, tap, flatMap } from 'rxjs/operators';
 import { formatDistanceToNow } from 'date-fns';
-import { User } from '@interfaces/user';
-import { NewsItem } from '@interfaces/newsItem';
-import { Comment } from '@interfaces/comment';
+import { User } from 'Interfaces/user';
+import { NewsItem } from 'Interfaces/newsItem';
+import { Comment } from 'Interfaces/comment';
 
 const prefix = 'https://hacker-news.firebaseio.com/v0/';
 const newsPrefix = prefix + '/item/';

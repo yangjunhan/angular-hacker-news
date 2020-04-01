@@ -12,7 +12,7 @@
 #hn-logo{
   width: 40px;
   height: 40px;
-  background: url("../../../assets/logo_HN.png") no-repeat center/cover;
+  background: url("../../assets/logo_HN.png") no-repeat center/cover;
   cursor: pointer;
   margin-left: 25%;
 }

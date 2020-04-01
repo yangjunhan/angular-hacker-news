@@ -1,32 +1,26 @@
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "baseUrl": "./src/app",
-    "paths": {
-      "@components/*": ["components/*"],
-      "@services/*": ["services/*"],
-      "@interfaces/*": ["interfaces/*"],
-      "@interceptor/*": ["interceptor/*"]
+    "compileOnSave": false,
+    "compilerOptions": {
+        "baseUrl": "./src/app",
+        "paths": {
+            "@services/*": ["Services/*"],
+            "@interfaces/*": ["Interfaces/*"],
+            "@interceptor/*": ["Interceptor/*"]
+        },
+        "outDir": "./dist/out-tsc",
+        "sourceMap": true,
+        "declaration": false,
+        "downlevelIteration": true,
+        "experimentalDecorators": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "importHelpers": true,
+        "target": "es2015",
+        "typeRoots": ["node_modules/@types"],
+        "lib": ["es2018", "dom"]
     },
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "es2015",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom"
-    ]
-  },
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
-  }
+    "angularCompilerOptions": {
+        "fullTemplateTypeCheck": true,
+        "strictInjectionParameters": true
+    }
 }
