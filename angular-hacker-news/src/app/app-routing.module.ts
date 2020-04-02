@@ -16,7 +16,6 @@ const routes: Routes = [
     },
     {
         path: 'user/:username',
-        loadChildren: () => import('user/user.module').then(m => m.UserModule),
         loadChildren: () => import('@hackerNews/components/user-module/user.module').then(
           m => m.UserModule
         ),
