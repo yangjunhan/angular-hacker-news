@@ -1,11 +1,9 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
-        "baseUrl": "./src/app",
+        "baseUrl": ".",
         "paths": {
-            "@services/*": ["Services/*"],
-            "@interfaces/*": ["Interfaces/*"],
-            "@interceptor/*": ["Interceptor/*"]
+            "@hackerNews/*": ["./src/app/*"]
         },
         "outDir": "./dist/out-tsc",
         "sourceMap": true,

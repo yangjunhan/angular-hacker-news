@@ -4,7 +4,10 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
     {
         path: 'news/:category',
-        loadChildren: () => import('news-list/news-list.module').then(m => m.NewsListModule),
+        loadChildren: () =>
+            import('@hackerNews/components/news-list-module/news-list.module').then(
+              m => m.NewsListModule
+            ),
     },
     {
         path: '',
@@ -14,14 +17,23 @@ const routes: Routes = [
     {
         path: 'user/:username',
         loadChildren: () => import('user/user.module').then(m => m.UserModule),
+        loadChildren: () => import('@hackerNews/components/user-module/user.module').then(
+          m => m.UserModule
+        ),
     },
     {
         path: 'comments/:id',
-        loadChildren: () => import('news-comments/news-comments.module').then(m => m.NewsCommentsModule),
+        loadChildren: () =>
+            import('@hackerNews/components/news-comments-module/news-comments.module').then(
+                m => m.NewsCommentsModule,
+            ),
     },
     {
         path: 'errors',
-        loadChildren: () => import('errors/errors.module').then(m => m.ErrorsModule),
+        loadChildren: () =>
+            import('@hackerNews/components/errors-module/errors.module').then(
+              m => m.ErrorsModule
+            ),
     },
 ];
 

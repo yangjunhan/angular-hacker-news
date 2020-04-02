@@ -1,11 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from 'app-routing.module';
-import { AppComponent } from 'app.component';
-import { HeaderComponent } from 'header/header.component';
-import { FooterComponent } from 'footer/footer.component';
-import { HttpRetryInterceptor } from 'Interceptor/http-retry.interceptor';
+import { AppRoutingModule } from '@hackerNews/app-routing.module';
+import { AppComponent } from '@hackerNews/app.component';
+import { HeaderComponent } from '@hackerNews/components/header/header.component';
+import { FooterComponent } from '@hackerNews/components/footer/footer.component';
+import { HttpRetryInterceptor } from 'src/app/interceptor/http-retry.interceptor';
 
 @NgModule({
     // HeaderComponent and FooterComponent are commonly used in this website
